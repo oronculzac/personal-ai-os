@@ -78,8 +78,11 @@ def generate_session_summary(context: dict, decision: PublishDecision) -> str:
 
 
 def save_session_log(context: dict, decision: PublishDecision, output_path: Path) -> bool:
-    """Save the session log to Obsidian vault."""
+    """Save the session log to Obsidian vault with synthesized content."""
     try:
+        # Import synthesizer
+        from synthesizer import synthesize_session
+        
         template_path = Path(__file__).parent.parent / "templates" / "session_note.md"
         
         if template_path.exists():
@@ -106,6 +109,9 @@ target_repo: {{target_repo}}
 {{publish_decision}}
 """
         
+        # Synthesize content from context
+        synth = synthesize_session(context)
+        
         # Fill template
         git = context.get("git", {})
         
@@ -121,12 +127,12 @@ target_repo: {{target_repo}}
         content = content.replace("{{git_activity}}", git.get("diff_stat", "No changes"))
         content = content.replace("{{publish_decision}}", decision.reason)
         
-        # Placeholders for content that needs LLM synthesis
-        content = content.replace("{{core_work_log}}", "*[To be synthesized by LLM]*")
-        content = content.replace("{{side_quest_log}}", "*[To be synthesized by LLM]*")
-        content = content.replace("{{narrative_content}}", "*[To be synthesized by LLM]*")
-        content = content.replace("{{twitter_draft}}", "*[To be synthesized by LLM]*")
-        content = content.replace("{{linkedin_draft}}", "*[To be synthesized by LLM]*")
+        # Fill with SYNTHESIZED content (not placeholders!)
+        content = content.replace("{{core_work_log}}", synth.core_work_log)
+        content = content.replace("{{side_quest_log}}", synth.side_quest_log)
+        content = content.replace("{{narrative_content}}", synth.narrative)
+        content = content.replace("{{twitter_draft}}", synth.twitter_draft)
+        content = content.replace("{{linkedin_draft}}", synth.linkedin_draft)
         
         # Write to output
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -136,6 +142,8 @@ target_repo: {{target_repo}}
         return True
     except Exception as e:
         print(f"Error saving session log: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 
