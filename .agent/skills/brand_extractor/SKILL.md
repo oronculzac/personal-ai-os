@@ -18,7 +18,18 @@ Extract comprehensive brand identity (colors, typography, spacing, logos) from a
 
 ## Instructions
 
-### 1. Extract Brand from Single URL
+> [!IMPORTANT]
+> **Fallback Order** (Firecrawl requires Docker MCP):
+> 1. **Docker MCP** (Primary): If Docker Desktop running, use `docker mcp tools call scrape`
+> 2. **Web Search** (Fallback): If Docker unavailable, use `search_web` for brand info
+> 3. **Manual Extraction**: Visit site and manually extract colors/fonts
+
+### Checking Docker Status
+```powershell
+docker info  # If fails, Docker isn't running - use fallback
+```
+
+### 1. Extract Brand from Single URL - Primary (Docker)
 
 Use Firecrawl MCP `scrape` with branding format:
 

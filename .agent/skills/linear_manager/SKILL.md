@@ -1,7 +1,7 @@
 ---
 name: Linear Manager
 description: Manage Linear issues and projects - create tasks, track progress, sync with notes. Use when user says "create linear task", "track progress", or "setup module".
-version: 2.0.0
+version: 2.1.0
 triggers:
   - create linear issue
   - create linear task
@@ -56,52 +56,108 @@ auto_load: true
 
 # Linear Manager Skill
 
-Manage Linear project management via MCP (Model Context Protocol).
+Manage Linear project management with automatic fallback between Docker MCP and Python client.
 
 ## 🎯 Purpose
 
-Create, update, and track Linear issues and projects directly using the Linear MCP server.
+Create, update, and track Linear issues and projects.
 
-## 🚀 Capabilities
+## 🔧 Configuration Priority
 
-### 1. **Issue Management**
-- **Create Issue**: Use `linear_create_issue`
-- **Update Issue**: Use `linear_update_issue`
-- **Search**: Use `linear_search_issues`
+> [!IMPORTANT]
+> **Fallback Order** (use first available):
+> 1. **Docker MCP** - If Docker Desktop is running, use `docker mcp tools call linear_*`
+> 2. **Python Client** - If Docker unavailable, use `.agent/core/linear_client.py`
 
-### 2. **Project Management**
-- **List Projects**: Use `linear_list_projects`
+### Checking Docker Status
+```powershell
+docker info  # If fails, Docker isn't running
+```
+
+## 🚀 Method 1: Docker MCP (Primary)
+
+When Docker Desktop is running:
+
+```bash
+docker mcp tools call create_issue '{"title":"...", "teamId":"...", "description":"..."}'
+docker mcp tools call search_issues '{"query":"..."}'
+```
+
+**Note**: PowerShell JSON escaping often fails. If you get JSON parsing errors, switch to Method 2.
+
+## 🚀 Method 2: Python Client (Fallback)
+
+When Docker is unavailable or has issues, use the LinearClient:
+
+```python
+import sys
+sys.path.insert(0, '.agent/core')
+from linear_client import LinearClient
+
+client = LinearClient()
+
+# Test connection
+result = client.test_connection()
+print(f"Teams: {result['teams']}")
+
+# Create issue
+team_id = client.get_team_id()
+result = client.create_issue(
+    title="My task",
+    description="Description here",
+    team_id=team_id
+)
+print(f"Created: {result['identifier']}")
+
+# Update state
+client.update_state("LIN-123", "Done")
+```
+
+### Quick One-Liners
+
+```powershell
+# Test connection
+python -c "import sys; sys.path.insert(0, '.agent/core'); from linear_client import LinearClient; print(LinearClient().test_connection())"
+
+# Create issue
+python -c "import sys; sys.path.insert(0, '.agent/core'); from linear_client import LinearClient; c = LinearClient(); print(c.create_issue('Title', 'Desc', c.get_team_id()))"
+```
 
 ## 💡 Usage Examples
 
 ### Example 1: Create Issue
 ```
 User: "Create Linear task to practice BigQuery partitioning"
-Assistant: calls linear_create_issue(title="Practice BigQuery partitioning", teamId="...", labelIds=[...])
+Assistant: 
+  1. Check if Docker is running
+  2. If yes: docker mcp tools call create_issue
+  3. If no: use Python client
 ```
 
-### Example 2: Track Progress
+### Example 2: Create Project with Issues
+```python
+# Use Python for complex operations
+client = LinearClient()
+team_id = client.get_team_id()
+
+# Create project via GraphQL
+mutation = """
+mutation CreateProject($name: String!, $teamIds: [String!]!) {
+    projectCreate(input: { name: $name, teamIds: $teamIds }) {
+        success
+        project { id name url }
+    }
+}
+"""
+result = client._execute_query(mutation, {"name": "My Project", "teamIds": [team_id]})
 ```
-User: "Show my Module 3 tasks"
-Assistant: calls linear_search_issues(query="Module 3", filter={...})
-```
-
-## 🔧 Configuration
-
-Server is configured in Docker MCP Toolkit.
-Ensure you have authorized the connection via `docker mcp oauth authorize linear` if prompted by the tool.
-
-## 🎓 Use Cases for DE Zoomcamp
-
-- **Homework Tracking**: Create issues for each homework question.
-- **Module Setup**: Manually create a project and populate it with issues.
-
-## 📖 Common Commands
-
-- "Create task for Spark homework"
-- "Show my tasks for this week"
-- "Setup Module 5" -> Create a project and add tasks using multiple tool calls.
 
 ## 🔒 Security
 
-- Authentication handled by Docker MCP securely.
+- **Docker MCP**: Uses OAuth via `docker mcp oauth authorize linear`
+- **Python Client**: Uses `LINEAR_API_KEY` from `.env` or environment
+
+## 📁 Files
+
+- `.agent/core/linear_client.py` - Python GraphQL client
+- Team ID: `4737f1e3-bf95-4d04-9ff9-795727637507` (Linear-home-workspace)
