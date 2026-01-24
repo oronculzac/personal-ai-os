@@ -1,0 +1,231 @@
+{
+  "main": {
+    "id": "5f96dbd754b2d056",
+    "type": "split",
+    "children": [
+      {
+        "id": "f42f428bc3edc0f2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f6e56d7e2105045e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Journals/Sessions/2026-01-18_DE-Zoomcamp-Docker.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2026-01-18_DE-Zoomcamp-Docker"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "76e68742fec49c27",
+    "type": "split",
+    "children": [
+      {
+        "id": "d755c3595b3e6355",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "096cd6042fdf8cb1",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "c1d975752b95027f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "991ad376ebe1ea0a",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "535c76c80db53771",
+    "type": "split",
+    "children": [
+      {
+        "id": "2bc0c9f06b1e084f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "88a462d7f96158ab",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "DataEngineering/Modules/Module-01-Docker-Terraform.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Module-01-Docker-Terraform"
+            }
+          },
+          {
+            "id": "0c8546a194302085",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "DataEngineering/Modules/Module-01-Docker-Terraform.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Module-01-Docker-Terraform"
+            }
+          },
+          {
+            "id": "a04701683a6e17dd",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "98039fd7e49fea8d",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "e1c8af09b6fe621e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "DataEngineering/Modules/Module-01-Docker-Terraform.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Module-01-Docker-Terraform"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "096cd6042fdf8cb1",
+  "lastOpenFiles": [
+    "Projects/Vietnam PIT Calculator.md",
+    "Projects",
+    "Journals/Daily/2026-01-19.md",
+    "Social/2026-01-18_DE-Zoomcamp-Docker_drafts.md",
+    "Social",
+    "Journals/Sessions/2026-01-18_1622.md",
+    "Journals/Sessions/2026-01-18_DE-Zoomcamp-Docker.md",
+    "README.md",
+    "Journals/Daily/2026-01-18.md",
+    "Journals/Daily/2026-01-17.md",
+    "02-Areas/DataEngineering/Modules/Module-01-Docker-Terraform.md",
+    "01-Projects/DE-Zoomcamp/Modules/Module-01-Docker-Terraform.md",
+    "02-Areas/DataEngineering/Workflow.md",
+    "Plans/2026-01-17_skills_cowork_personas_research_plan.md",
+    "03-Resources/Guides/skill_creation_guide.md",
+    "02-Areas/DataEngineering/Modules",
+    "02-Areas/DataEngineering",
+    "Journals/Sessions/2026-01-17_system_review_optimization_walkthrough_walkthrough.md",
+    "Plans/2026-01-17_system_review_optimization_task.md",
+    "Plans/2026-01-17_system_review_optimization_plan_plan.md",
+    "04-Archive/Welcome.md",
+    "04-Archive/old_root_README.md",
+    "04-Archive/old_task.md",
+    "04-Archive/system_architecture_1768647649580.png",
+    "04-Archive/optimal_session_flow_1768647552475.png",
+    "04-Archive/implementation_report.md",
+    "04-Archive/session_summary.md",
+    "04-Archive/publishing_plan.md",
+    "04-Archive/feature_status.md",
+    "04-Archive/system_analysis.md",
+    "03-Resources/Guides/system_readme.md",
+    "03-Resources/Guides/decision_tree.md",
+    "03-Resources/Cheatsheets/command_cheatsheet_1768647819828.png",
+    "03-Resources/Guides",
+    "03-Resources/Cheatsheets",
+    "03-Resources/AI-Reports",
+    "01-Projects/DE-Zoomcamp/Weekly",
+    "01-Projects/DE-Zoomcamp/Homework",
+    "01-Projects/DE-Zoomcamp/Modules",
+    "System/optimal_session_flow_1768647552475.png",
+    "System/command_cheatsheet_1768647819828.png",
+    "System/system_architecture_1768647649580.png"
+  ]
+}

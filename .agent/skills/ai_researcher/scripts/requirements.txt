@@ -1,0 +1,5 @@
+pytrends
+feedparser
+requests
+beautifulsoup4
+lxml

@@ -1,0 +1,33 @@
+{
+  "event": "task_boundary",
+  "action": "created",
+  "task": {
+    "id": "task-2026-01-23-001",
+    "title": "Create task boundary hook",
+    "description": "Define the task boundary payload and validation to support Linear and Obsidian automation.",
+    "acceptance_criteria": [
+      "Schema validates required fields",
+      "Payload supports Linear and Obsidian sync"
+    ],
+    "status": "todo",
+    "priority": "medium",
+    "labels": [
+      "repo:antigravity_general",
+      "area:automation"
+    ],
+    "files": [
+      "task.md"
+    ],
+    "links": {
+      "task_file": "C:\\Users\\Oron Culzac\\antigravity_general\\task.md",
+      "repo": "C:\\Users\\Oron Culzac\\antigravity_general"
+    }
+  },
+  "context": {
+    "repo_name": "antigravity_general",
+    "branch": "master",
+    "user": "Oron Culzac",
+    "timestamp": "2026-01-23T10:15:00Z",
+    "session_id": "session-abc123"
+  }
+}

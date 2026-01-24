@@ -8,8 +8,12 @@ Bidirectional sync of tasks between Obsidian daily notes and Linear issues.
 
 ## Usage
 
+### Via Natural Language
+```
 "Sync my tasks"
 "Add today's tasks to Linear"
+"Sync tasks from my daily note"
+```
 
 ## What It Does
 
@@ -120,46 +124,6 @@ Mark complete in Obsidian
 
 ---
 
-## Example
-
-**Before sync:**
-
-Obsidian:
-```markdown
-# 2026-01-20
-
-## Tasks
-- [ ] Practice BigQuery partitioning
-- [ ] Review dbt docs
-- [x] Watch Module 3 videos [[LIN-45]]
-```
-
-Linear:
-```
-No matching tasks
-```
-
-**After sync:**
-
-Obsidian:
-```markdown
-# 2026-01-20
-
-## Tasks
-- [ ] Practice BigQuery partitioning [[LIN-101]]
-- [ ] Review dbt docs [[LIN-102]]
-- [x] Watch Module 3 videos [[LIN-45]]
-```
-
-Linear:
-```
-LIN-101: Practice BigQuery partitioning (todo)
-LIN-102: Review dbt docs (todo)
-LIN-45: Watch Module 3 videos (done) ← Status synced
-```
-
----
-
 ## Frequency
 
 **Recommended:** 
@@ -167,8 +131,6 @@ LIN-45: Watch Module 3 videos (done) ← Status synced
 - Evening: Push from Obsidian → Linear
 
 **Manual trigger:** "Sync my tasks"
-
-**Auto:** Can run on schedule (optional)
 
 ---
 

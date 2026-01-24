@@ -22,7 +22,7 @@ Good morning! Let me pull together your standup...
 ### 2. Pull Linear Tasks
 // turbo
 ```powershell
-python -c "
+.agent\.venv\Scripts\python.exe -c "
 import sys
 sys.path.insert(0, '.agent/skills/session_wrapper/scripts')
 from linear_client import LinearClient
@@ -37,15 +37,21 @@ for i in issues:
 ```
 
 ### 3. Check Yesterday's Session
-Review the most recent session log in `vault/Sessions/` for continuity.
+Review the most recent session log in `vault/Journals/Sessions/` for continuity.
 
-### 4. Show Weekly Stats
+### 4. Sync Obsidian Tasks
 // turbo
 ```powershell
-python .agent\skills\session_wrapper\scripts\weekly_summary.py
+.agent\.venv\Scripts\python.exe .agent\skills\obsidian_linear_sync\scripts\sync.py
 ```
 
-### 5. Priority Suggestions
+### 5. Show Weekly Stats
+// turbo
+```powershell
+.agent\.venv\Scripts\python.exe .agent\skills\session_wrapper\scripts\weekly_summary.py
+```
+
+### 6. Priority Suggestions
 Based on:
 - Tickets in progress
 - Yesterday's work
@@ -53,13 +59,14 @@ Based on:
 
 Suggest top 3 priorities for today.
 
-### 6. Optional: Trend Research
-If user agrees, search for:
-- Latest updates on technologies being used
-- Best practices updates
-- Community discussions
+### 7. Optional: Trend Research
+If user agrees, run the AI Researcher skill:
+// turbo
+```powershell
+.agent\.venv\Scripts\python.exe .agent\skills\ai_researcher\scripts\research.py
+```
 
-### 7. Create Today's Plan
+### 8. Create Today's Plan
 Optionally create a daily note in Obsidian with:
 - Top priorities
 - Scheduled tasks

@@ -151,6 +151,20 @@ class DevToClient:
             return []
         except:
             return []
+    
+    def delete_article(self, article_id: int) -> bool:
+        """Delete an article by ID."""
+        if not self.api_key:
+            return False
+        
+        try:
+            response = requests.delete(
+                f"{self.BASE_URL}/articles/{article_id}",
+                headers=self._headers()
+            )
+            return response.status_code == 204 or response.status_code == 200
+        except:
+            return False
 
 
 def session_log_to_article(log_path: Path, series: str = "Learning in Public") -> DevToArticle:

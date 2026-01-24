@@ -13,6 +13,19 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 
+# Load .env from workspace root
+try:
+    from dotenv import load_dotenv
+    # Find workspace root (directory containing .agent/)
+    _current = Path(__file__).parent
+    while _current != _current.parent:
+        if (_current.parent / ".env").exists():
+            load_dotenv(_current.parent / ".env")
+            break
+        _current = _current.parent
+except ImportError:
+    pass  # dotenv not installed, rely on system env vars
+
 
 @dataclass
 class LinearIssue:
@@ -37,30 +50,42 @@ class LinearClient:
         
         Args:
             api_key: Direct API key (takes precedence)
-            config_path: Path to mcp_config.json (fallback)
+            config_path: Path to mcp_config.json (legacy fallback)
+        
+        Priority order:
+        1. api_key parameter
+        2. LINEAR_API_KEY environment variable
+        3. mcp_config.json (legacy, deprecated)
         """
         self.api_key = api_key
         
+        # Try environment variable first
+        if not self.api_key:
+            self.api_key = os.getenv("LINEAR_API_KEY")
+        
+        # Legacy fallback to config file (deprecated)
         if not self.api_key and config_path:
             self.api_key = self._load_api_key(config_path)
         
         if not self.api_key:
-            # Try default config location
+            # Try default config location (legacy)
             default_config = Path(".agent/config/mcp_config.json")
             if default_config.exists():
                 self.api_key = self._load_api_key(default_config)
     
     def _load_api_key(self, config_path: Path) -> Optional[str]:
-        """Load API key from config file."""
+        """Load API key from config file (legacy, deprecated)."""
         try:
             with open(config_path, 'r') as f:
                 config = json.load(f)
             return config.get("linear", {}).get("api_key")
         except (json.JSONDecodeError, FileNotFoundError):
             return None
+
     
-    def _execute_query(self, query: str, variables: Optional[Dict] = None) -> Dict[str, Any]:
-        """Execute a GraphQL query against Linear API."""
+    def _execute_query(self, query: str, variables: Optional[Dict] = None, 
+                       max_retries: int = 3) -> Dict[str, Any]:
+        """Execute a GraphQL query against Linear API with retry logic."""
         if not self.api_key:
             raise ValueError("No Linear API key configured")
         
@@ -73,17 +98,45 @@ class LinearClient:
         if variables:
             payload["variables"] = variables
         
-        response = requests.post(self.API_URL, headers=headers, json=payload)
+        last_exception = None
+        for attempt in range(max_retries):
+            try:
+                response = requests.post(self.API_URL, headers=headers, json=payload, timeout=30)
+                
+                if response.status_code == 429:  # Rate limited
+                    wait_time = min(2 ** attempt, 8)  # 1, 2, 4, max 8 seconds
+                    import time
+                    time.sleep(wait_time)
+                    continue
+                
+                if response.status_code >= 500:  # Server error, retry
+                    wait_time = min(2 ** attempt, 8)
+                    import time
+                    time.sleep(wait_time)
+                    continue
+                
+                if response.status_code != 200:
+                    raise Exception(f"Linear API error: {response.status_code} - {response.text}")
+                
+                data = response.json()
+                
+                if "errors" in data:
+                    raise Exception(f"GraphQL errors: {data['errors']}")
+                
+                return data.get("data", {})
+                
+            except requests.exceptions.RequestException as e:
+                last_exception = e
+                if attempt < max_retries - 1:
+                    wait_time = min(2 ** attempt, 8)
+                    import time
+                    time.sleep(wait_time)
+                    continue
+                raise Exception(f"Linear API request failed after {max_retries} retries: {e}")
         
-        if response.status_code != 200:
-            raise Exception(f"Linear API error: {response.status_code} - {response.text}")
-        
-        data = response.json()
-        
-        if "errors" in data:
-            raise Exception(f"GraphQL errors: {data['errors']}")
-        
-        return data.get("data", {})
+        if last_exception:
+            raise Exception(f"Linear API request failed after {max_retries} retries: {last_exception}")
+        raise Exception("Linear API request failed unexpectedly")
     
     def get_in_progress_issues(self) -> List[LinearIssue]:
         """Get all issues currently in progress."""
@@ -416,6 +469,140 @@ class LinearClient:
                 return {"success": False, "error": "Update failed"}
         except Exception as e:
             return {"success": False, "error": str(e)}
+    
+    def list_all_issues(self, limit: int = 50) -> List[LinearIssue]:
+        """Get all issues in the workspace."""
+        query = """
+        query AllIssues($first: Int!) {
+            issues(first: $first, orderBy: createdAt) {
+                nodes {
+                    identifier
+                    title
+                    url
+                    description
+                    state { name }
+                    project { name }
+                    cycle { number }
+                    labels { nodes { name } }
+                }
+            }
+        }
+        """
+        
+        data = self._execute_query(query, {"first": limit})
+        return self._parse_issues(data.get("issues", {}).get("nodes", []))
+    
+    def update_state(self, issue_id: str, state_name: str) -> Dict[str, Any]:
+        """
+        Update an issue's state/status.
+        
+        Args:
+            issue_id: Issue identifier (e.g., LIN-14)
+            state_name: State name (e.g., 'In Progress', 'Done', 'Canceled')
+        """
+        # First get the issue's internal ID
+        if "-" in issue_id and not issue_id.startswith("lin_"):
+            parts = issue_id.split("-")
+            if len(parts) == 2:
+                team_key = parts[0]
+                issue_number = int(parts[1])
+                
+                query = """
+                query GetIssueAndStates($teamKey: String!, $number: Float!) {
+                    issues(filter: { team: { key: { eq: $teamKey } }, number: { eq: $number } }, first: 1) {
+                        nodes { id identifier team { id states { nodes { id name } } } }
+                    }
+                }
+                """
+                try:
+                    data = self._execute_query(query, {
+                        "teamKey": team_key,
+                        "number": issue_number
+                    })
+                    nodes = data.get("issues", {}).get("nodes", [])
+                    if not nodes:
+                        return {"success": False, "error": f"Issue {issue_id} not found"}
+                    
+                    issue_uuid = nodes[0].get("id")
+                    states = nodes[0].get("team", {}).get("states", {}).get("nodes", [])
+                    
+                    # Find the target state
+                    state_id = None
+                    for s in states:
+                        if s.get("name", "").lower() == state_name.lower():
+                            state_id = s.get("id")
+                            break
+                    
+                    if not state_id:
+                        available = [s.get("name") for s in states]
+                        return {"success": False, "error": f"State '{state_name}' not found. Available: {available}"}
+                    
+                    # Update the issue
+                    mutation = """
+                    mutation UpdateIssueState($id: String!, $stateId: String!) {
+                        issueUpdate(id: $id, input: { stateId: $stateId }) {
+                            success
+                            issue { identifier state { name } }
+                        }
+                    }
+                    """
+                    data = self._execute_query(mutation, {
+                        "id": issue_uuid,
+                        "stateId": state_id
+                    })
+                    result = data.get("issueUpdate", {})
+                    if result.get("success"):
+                        return {
+                            "success": True,
+                            "identifier": result.get("issue", {}).get("identifier"),
+                            "state": result.get("issue", {}).get("state", {}).get("name")
+                        }
+                    return {"success": False, "error": "State update failed"}
+                except Exception as e:
+                    return {"success": False, "error": str(e)}
+        return {"success": False, "error": "Invalid issue ID format"}
+    
+    def archive_issue(self, issue_id: str) -> Dict[str, Any]:
+        """Archive (soft delete) an issue."""
+        # Get internal ID first
+        if "-" in issue_id:
+            parts = issue_id.split("-")
+            if len(parts) == 2:
+                team_key = parts[0]
+                issue_number = int(parts[1])
+                
+                query = """
+                query GetIssueId($teamKey: String!, $number: Float!) {
+                    issues(filter: { team: { key: { eq: $teamKey } }, number: { eq: $number } }, first: 1) {
+                        nodes { id identifier }
+                    }
+                }
+                """
+                try:
+                    data = self._execute_query(query, {
+                        "teamKey": team_key,
+                        "number": issue_number
+                    })
+                    nodes = data.get("issues", {}).get("nodes", [])
+                    if not nodes:
+                        return {"success": False, "error": f"Issue {issue_id} not found"}
+                    
+                    issue_uuid = nodes[0].get("id")
+                    
+                    mutation = """
+                    mutation ArchiveIssue($id: String!) {
+                        issueArchive(id: $id) {
+                            success
+                        }
+                    }
+                    """
+                    data = self._execute_query(mutation, {"id": issue_uuid})
+                    if data.get("issueArchive", {}).get("success"):
+                        return {"success": True, "identifier": issue_id}
+                    return {"success": False, "error": "Archive failed"}
+                except Exception as e:
+                    return {"success": False, "error": str(e)}
+        return {"success": False, "error": "Invalid issue ID format"}
 
 
 def format_issues_for_display(issues: List[LinearIssue]) -> str:
@@ -451,7 +638,7 @@ if __name__ == "__main__":
             if result["success"]:
                 print("✅ Connection successful!")
                 print(f"   User: {result['user'].get('name', 'Unknown')}")
-                print(f"   Teams: {', '.join(result['teams'])}")
+                print(f"   Teams: {', '.join(t.get('name', t.get('key', 'Unknown')) for t in result['teams'])}")
             else:
                 print(f"❌ Connection failed: {result['error']}")
         

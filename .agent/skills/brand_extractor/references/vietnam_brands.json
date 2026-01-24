@@ -1,0 +1,194 @@
+{
+    "metadata": {
+        "version": "1.0.0",
+        "last_updated": "2026-01-23",
+        "description": "Vietnamese brand database for brand extraction skill"
+    },
+    "brands": [
+        {
+            "name": "Viettel",
+            "category": "Telecom",
+            "url": "https://viettel.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "Vinamilk",
+            "category": "Dairy",
+            "url": "https://www.vinamilk.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "WinMart",
+            "category": "Retail",
+            "url": "https://winmart.vn",
+            "type": "official",
+            "notes": "Formerly VinMart, now part of Masan"
+        },
+        {
+            "name": "Masan",
+            "category": "FMCG",
+            "url": "https://www.masangroup.com",
+            "type": "official"
+        },
+        {
+            "name": "FPT",
+            "category": "Technology",
+            "url": "https://fpt.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "VNG",
+            "category": "Technology",
+            "url": "https://vng.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "Vietcombank",
+            "category": "Banking",
+            "url": "https://vietcombank.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "BIDV",
+            "category": "Banking",
+            "url": "https://www.bidv.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "VPBank",
+            "category": "Banking",
+            "url": "https://vpbank.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "Techcombank",
+            "category": "Banking",
+            "url": "https://techcombank.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "Vinhomes",
+            "category": "Real Estate",
+            "url": "https://vinhomes.vn",
+            "type": "official"
+        },
+        {
+            "name": "Novaland",
+            "category": "Real Estate",
+            "url": "https://novaland.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "TH True Milk",
+            "category": "Dairy",
+            "url": "https://www.thmilk.vn",
+            "type": "official"
+        },
+        {
+            "name": "Sabeco",
+            "category": "Beverage",
+            "url": "https://www.sabeco.com.vn",
+            "type": "official",
+            "notes": "Saigon Beer"
+        },
+        {
+            "name": "VNPT",
+            "category": "Telecom",
+            "url": "https://vnpt.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "MobiFone",
+            "category": "Telecom",
+            "url": "https://mobifone.vn",
+            "type": "official"
+        },
+        {
+            "name": "Saigon Co.op",
+            "category": "Retail",
+            "url": "https://www.saigoncoop.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "Central Retail Vietnam",
+            "category": "Retail",
+            "url": "https://centralretail.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "Lotte Vietnam",
+            "category": "Retail",
+            "url": "https://www.lottevn.com",
+            "type": "official"
+        },
+        {
+            "name": "Vietnam Airlines",
+            "category": "Aviation",
+            "url": "https://www.vietnamairlines.com",
+            "type": "official"
+        },
+        {
+            "name": "VinFast",
+            "category": "Automotive",
+            "url": "https://vinfastauto.com",
+            "type": "official"
+        },
+        {
+            "name": "Petrolimex",
+            "category": "Energy",
+            "url": "https://petrolimex.com.vn",
+            "type": "official"
+        },
+        {
+            "name": "EVN",
+            "category": "Energy",
+            "url": "https://www.evn.com.vn",
+            "type": "official",
+            "notes": "Vietnam Electricity"
+        }
+    ],
+    "international_in_vietnam": [
+        {
+            "name": "Samsung Vietnam",
+            "category": "Electronics",
+            "url": "https://www.samsung.com/vn",
+            "type": "international"
+        },
+        {
+            "name": "Apple Vietnam",
+            "category": "Electronics",
+            "url": "https://www.apple.com/vn",
+            "type": "international"
+        },
+        {
+            "name": "Unilever Vietnam",
+            "category": "FMCG",
+            "url": "https://www.unilever.com.vn",
+            "type": "international"
+        },
+        {
+            "name": "P&G Vietnam",
+            "category": "FMCG",
+            "url": "https://www.pg.com.vn",
+            "type": "international"
+        },
+        {
+            "name": "Nestle Vietnam",
+            "category": "FMCG",
+            "url": "https://www.nestle.com.vn",
+            "type": "international"
+        },
+        {
+            "name": "Adidas Vietnam",
+            "category": "Apparel",
+            "url": "https://www.adidas.com.vn",
+            "type": "international"
+        },
+        {
+            "name": "Nike Vietnam",
+            "category": "Apparel",
+            "url": "https://www.nike.com/vn",
+            "type": "international"
+        }
+    ]
+}

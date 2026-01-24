@@ -320,7 +320,7 @@ This workspace is equipped with Antigravity's Skills & Cowork system, providing:
 Skills are located in `.agent/skills/`. To see available skills:
 
 \`\`\`powershell
-python .agent/core/skill_discovery.py
+.agent\.venv\Scripts\python.exe .agent/core/skill_discovery.py
 \`\`\`
 
 ## Using Skills
@@ -368,7 +368,7 @@ For file operations, Antigravity will request folder access. Permissions are man
 ## Next Steps
 
 1. Install skill dependencies: \`pip install -r .agent/skills/requirements_all.txt\`
-2. Discover available skills: \`python .agent/core/skill_discovery.py\`
+2. Discover available skills: \`.agent\.venv\Scripts\python.exe .agent/core/skill_discovery.py\`
 3. Start using skills in conversations with Antigravity
 
 ## Support
@@ -386,7 +386,7 @@ tree .agent /F
 
 11. Test skill discovery:
 ```powershell
-python .agent/core/skill_discovery.py
+.agent\.venv\Scripts\python.exe .agent/core/skill_discovery.py
 ```
 
 ## Done!

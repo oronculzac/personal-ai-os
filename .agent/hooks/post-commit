@@ -1,0 +1,20 @@
+#!/bin/sh
+# post-commit hook - Suggests session wrap after significant commits
+# Install: copy to .git/hooks/post-commit and chmod +x
+
+# Count files changed in this commit
+FILES_CHANGED=$(git diff --name-only HEAD~1 2>/dev/null | wc -l)
+
+# If more than 5 files changed, suggest wrap
+if [ $FILES_CHANGED -gt 5 ]; then
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "📦 Significant commit detected! ($FILES_CHANGED files)"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+    echo "Consider running a session wrap:"
+    echo "  python .agent/skills/session_wrapper/scripts/session_wrapper.py --dry-run"
+    echo ""
+    echo "Or say: 'wrap up' in Antigravity"
+    echo ""
+fi

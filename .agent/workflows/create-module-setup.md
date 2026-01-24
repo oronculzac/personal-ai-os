@@ -51,7 +51,7 @@ Example: `Module-03-Data-Warehousing.md`
 ```
 Data Engineering Zoomcamp - Module {N}
 
-📖 Notes: obsidian://vault/DataEngineering/Modules/Module-{N}
+📖 Notes: obsidian://vault/Areas/DataEngineering/Modules/Module-{N}
 🎯 Goals: [list learning goals]
 ```
 

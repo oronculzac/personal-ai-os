@@ -1,0 +1,2 @@
+# No additional dependencies needed - uses built-in libraries
+# pathlib, json, hashlib, shutil, datetime are all built-in

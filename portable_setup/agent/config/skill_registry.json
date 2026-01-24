@@ -1,0 +1,106 @@
+{
+  "version": "1.0",
+  "skills": [
+    {
+      "id": "example_template",
+      "name": "Example Skill Template",
+      "description": "Template for creating new skills",
+      "version": "1.0.0",
+      "path": ".agent\\skills\\example_template",
+      "triggers": [
+        "example",
+        "template skill"
+      ],
+      "capabilities": [
+        "example_capability"
+      ],
+      "dependencies": [],
+      "enabled": true,
+      "auto_load": false
+    },
+    {
+      "id": "excel_generator",
+      "name": "Excel Generator",
+      "description": "Create Excel spreadsheets with formulas, formatting, charts, and multi-sheet support",
+      "version": "1.0.0",
+      "path": ".agent\\skills\\excel_generator",
+      "triggers": [
+        "create spreadsheet",
+        "generate excel",
+        "make xlsx",
+        "create excel",
+        "data to excel",
+        "build spreadsheet"
+      ],
+      "capabilities": [
+        "excel_creation",
+        "formula_generation",
+        "data_formatting",
+        "chart_creation",
+        "multi_sheet_support"
+      ],
+      "dependencies": [
+        "openpyxl>=3.0.0",
+        "pandas>=1.5.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "file_organizer",
+      "name": "File Organizer",
+      "description": "Organize and manage files with intelligent categorization, batch operations, and safety controls",
+      "version": "1.0.0",
+      "path": ".agent\\skills\\file_organizer",
+      "triggers": [
+        "organize folder",
+        "organize files",
+        "sort files",
+        "categorize files",
+        "batch rename",
+        "clean up folder",
+        "find duplicates",
+        "organize downloads"
+      ],
+      "capabilities": [
+        "file_organization",
+        "batch_operations",
+        "duplicate_detection",
+        "smart_categorization",
+        "file_renaming"
+      ],
+      "dependencies": [
+        "pathlib (built-in)"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "web_scraper",
+      "name": "Web Scraper",
+      "description": "Extract data from websites using browser automation, with support for dynamic content and structured data collection",
+      "version": "1.0.0",
+      "path": ".agent\\skills\\web_scraper",
+      "triggers": [
+        "scrape website",
+        "extract data from",
+        "get content from",
+        "crawl website",
+        "fetch web data",
+        "collect information from"
+      ],
+      "capabilities": [
+        "web_scraping",
+        "data_extraction",
+        "browser_automation",
+        "structured_data_collection",
+        "dynamic_content_handling"
+      ],
+      "dependencies": [
+        "browser automation (built-in)"
+      ],
+      "enabled": true,
+      "auto_load": true
+    }
+  ]
+}

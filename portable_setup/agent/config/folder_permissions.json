@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "permissions": [
+    {
+      "path": "C:\\Users\\Oron Culzac\\antigravity_general\\.agent\\test_folder",
+      "granted_at": "2026-01-15T09:01:08.116081",
+      "access_level": "read_write",
+      "auto_approve_operations": false
+    }
+  ],
+  "audit_log": []
+}

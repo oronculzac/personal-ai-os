@@ -1,11 +1,24 @@
 ---
 name: Dev.to Publisher
 description: Publish blog posts to Dev.to from session logs and weekly summaries
-version: 1.0.0
+version: 1.1.0
 triggers:
   - publish to devto
   - create blog post
   - share on devto
+  - write article
+examples:
+  - "Publish this session to Dev.to"
+  - "Create a blog post from my learning today"
+  - "Share this summary on Dev.to"
+  - "Write an article about BigQuery partitioning"
+context_hints:
+  - user mentions Dev.to or blogging
+  - user wants to share their learning publicly
+  - user mentions creating articles or posts
+  - learning-in-public sharing request
+priority: 6
+conflicts_with: []
 capabilities:
   - article_creation
   - session_conversion

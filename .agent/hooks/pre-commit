@@ -1,0 +1,43 @@
+#!/bin/bash
+# pre-commit hook - Prevents committing secrets
+# Install: copy to .git/hooks/pre-commit and chmod +x
+
+echo "🔍 Checking for secrets..."
+
+# Run secrets checker on staged files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+
+if [ -z "$STAGED_FILES" ]; then
+    exit 0
+fi
+
+# Check each staged file
+SECRETS_FOUND=0
+for FILE in $STAGED_FILES; do
+    if [ -f "$FILE" ]; then
+        # Skip binary files
+        if file "$FILE" | grep -q "text"; then
+            # Check for common secret patterns
+            if grep -qE "(ghp_[A-Za-z0-9]{36}|lin_api_[A-Za-z0-9]+|sk-[A-Za-z0-9]{32,}|password\s*=|api_key\s*=)" "$FILE" 2>/dev/null; then
+                # Skip safe patterns
+                if ! grep -qE "(example|placeholder|YOUR_|xxxx|\*\*\*)" "$FILE" 2>/dev/null; then
+                    echo "❌ Potential secret in: $FILE"
+                    SECRETS_FOUND=1
+                fi
+            fi
+        fi
+    fi
+done
+
+if [ $SECRETS_FOUND -eq 1 ]; then
+    echo ""
+    echo "⚠️  Secrets detected! Please:"
+    echo "   1. Remove the secrets from the file"
+    echo "   2. Add to .gitignore if needed"
+    echo "   3. Use .env for secrets instead"
+    echo ""
+    exit 1
+fi
+
+echo "✅ No secrets detected"
+exit 0

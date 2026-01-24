@@ -1,0 +1,653 @@
+{
+  "version": "1.0",
+  "skills": [
+    {
+      "id": "ai_researcher",
+      "name": "AI Researcher",
+      "description": "Automated skill to gather and summarize AI news and trends from various sources (Google Trends, RSS).",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\ai_researcher",
+      "triggers": [
+        "research AI news",
+        "get AI trends",
+        "summarize AI developments",
+        "AI newsletter",
+        "what's new in AI"
+      ],
+      "examples": [
+        "What's happening in AI this week?",
+        "Research the latest AI developments",
+        "Create an AI news summary",
+        "Find trending AI topics"
+      ],
+      "context_hints": [
+        "user asks about AI news or trends",
+        "user wants industry updates",
+        "user mentions research or monitoring AI landscape"
+      ],
+      "priority": 5,
+      "conflicts_with": [],
+      "capabilities": [
+        "trend_analysis",
+        "news_aggregation",
+        "community_monitoring",
+        "report_generation"
+      ],
+      "dependencies": [
+        "pytrends>=4.9.0",
+        "feedparser>=6.0.0",
+        "requests>=2.31.0",
+        "beautifulsoup4>=4.12.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "artifact_sync",
+      "name": "Artifact Sync",
+      "description": "Sync AI-generated artifacts (plans, tasks, walkthroughs) to Obsidian with intuitive naming. Use when user says \"sync artifact\", \"save plan\", or \"copy to vault\".",
+      "version": "1.2.0",
+      "path": ".agent\\skills\\artifact_sync",
+      "triggers": [
+        "sync artifact",
+        "save plan to obsidian",
+        "copy task to notes",
+        "sync to vault",
+        "save walkthrough"
+      ],
+      "examples": [
+        "Save this implementation plan to my notes",
+        "Sync the walkthrough to Obsidian",
+        "Copy this task list to my vault",
+        "Archive this plan"
+      ],
+      "context_hints": [
+        "user mentions saving or syncing AI-generated content",
+        "user references plans, tasks, or walkthroughs",
+        "user wants to preserve conversation artifacts",
+        "user mentions Obsidian vault"
+      ],
+      "priority": 7,
+      "conflicts_with": [],
+      "capabilities": [
+        "artifact_detection",
+        "topic_extraction",
+        "obsidian_sync",
+        "intuitive_naming"
+      ],
+      "dependencies": [
+        "pyyaml>=6.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "code_template_generator",
+      "name": "Code Template Generator",
+      "description": "Generate production-ready code templates for data engineering tasks including Spark, SQL, dbt, Terraform, Docker, and ETL scripts",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\code_template_generator",
+      "triggers": [
+        "generate code for",
+        "create script for",
+        "generate spark job",
+        "create dbt model",
+        "generate terraform config",
+        "create docker compose",
+        "generate sql query",
+        "create etl script",
+        "generate kafka code"
+      ],
+      "examples": [
+        "Generate a Spark ETL job for BigQuery",
+        "Create a dbt model for customer dimensions",
+        "Generate Terraform for GCS bucket",
+        "Create Docker Compose for local Spark cluster"
+      ],
+      "context_hints": [
+        "user needs boilerplate code for data engineering",
+        "user mentions Spark, SQL, dbt, Terraform, Docker",
+        "user asks for code generation or templates",
+        "user is doing DE Zoomcamp work"
+      ],
+      "priority": 7,
+      "conflicts_with": [],
+      "capabilities": [
+        "spark_templates",
+        "sql_generation",
+        "dbt_models",
+        "terraform_configs",
+        "docker_configs",
+        "etl_scripts",
+        "kafka_code",
+        "python_pipelines"
+      ],
+      "dependencies": [
+        "pyyaml>=6.0.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "devto_publisher",
+      "name": "Dev.to Publisher",
+      "description": "Publish blog posts to Dev.to from session logs and weekly summaries",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\devto_publisher",
+      "triggers": [
+        "publish to devto",
+        "create blog post",
+        "share on devto",
+        "write article"
+      ],
+      "examples": [
+        "Publish this session to Dev.to",
+        "Create a blog post from my learning today",
+        "Share this summary on Dev.to",
+        "Write an article about BigQuery partitioning"
+      ],
+      "context_hints": [
+        "user mentions Dev.to or blogging",
+        "user wants to share their learning publicly",
+        "user mentions creating articles or posts",
+        "learning-in-public sharing request"
+      ],
+      "priority": 6,
+      "conflicts_with": [],
+      "capabilities": [
+        "article_creation",
+        "session_conversion",
+        "weekly_summaries"
+      ],
+      "dependencies": [
+        "requests>=2.31.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "environment_setup_helper",
+      "name": "Environment Setup Helper",
+      "description": "Automate environment setup, dependency management, and validation for data engineering projects",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\environment_setup_helper",
+      "triggers": [
+        "setup environment",
+        "check dependencies",
+        "validate setup",
+        "create virtual environment",
+        "install requirements",
+        "setup docker",
+        "configure gcp",
+        "initialize terraform"
+      ],
+      "examples": [
+        "Setup my environment for Module 1",
+        "Check if Docker is running",
+        "Create a virtual environment for this project",
+        "Validate my GCP configuration"
+      ],
+      "context_hints": [
+        "user mentions environment setup or dependencies",
+        "user has installation or configuration issues",
+        "user mentions Docker, Terraform, or GCP setup",
+        "user starting a new module"
+      ],
+      "priority": 7,
+      "conflicts_with": [],
+      "capabilities": [
+        "environment_creation",
+        "dependency_validation",
+        "docker_setup",
+        "cloud_configuration",
+        "tool_installation",
+        "health_checks"
+      ],
+      "dependencies": [],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "example_template",
+      "name": "Example Skill Template",
+      "description": "Template for creating new skills",
+      "version": "1.0.0",
+      "path": ".agent\\skills\\example_template",
+      "triggers": [
+        "example",
+        "template skill"
+      ],
+      "examples": [],
+      "context_hints": [],
+      "priority": 5,
+      "conflicts_with": [],
+      "capabilities": [
+        "example_capability"
+      ],
+      "dependencies": [],
+      "enabled": true,
+      "auto_load": false
+    },
+    {
+      "id": "excel_generator",
+      "name": "Excel Generator",
+      "description": "Create Excel spreadsheets with formulas, formatting, charts, and multi-sheet support",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\excel_generator",
+      "triggers": [
+        "create spreadsheet",
+        "generate excel",
+        "make xlsx",
+        "create excel",
+        "data to excel",
+        "build spreadsheet"
+      ],
+      "examples": [
+        "Create a sales report spreadsheet",
+        "Generate an Excel budget tracker",
+        "Convert this CSV to Excel with charts",
+        "Build expense report in Excel"
+      ],
+      "context_hints": [
+        "user mentions Excel or spreadsheets",
+        "user wants data in tabular format",
+        "user needs reports or charts",
+        "user has data to organize"
+      ],
+      "priority": 6,
+      "conflicts_with": [],
+      "capabilities": [
+        "excel_creation",
+        "formula_generation",
+        "data_formatting",
+        "chart_creation",
+        "multi_sheet_support"
+      ],
+      "dependencies": [
+        "openpyxl>=3.0.0",
+        "pandas>=1.5.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "file_organizer",
+      "name": "File Organizer",
+      "description": "Organize and manage files with intelligent categorization, batch operations, and safety controls",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\file_organizer",
+      "triggers": [
+        "organize folder",
+        "organize files",
+        "sort files",
+        "categorize files",
+        "batch rename",
+        "clean up folder",
+        "find duplicates",
+        "organize downloads"
+      ],
+      "examples": [
+        "Organize my Downloads folder by type",
+        "Find duplicate files in Documents",
+        "Batch rename photos with date prefix",
+        "Clean up old files in this folder"
+      ],
+      "context_hints": [
+        "user mentions organizing or sorting files",
+        "user wants to clean up folders",
+        "user mentions duplicates or renaming",
+        "user references Downloads or messy folders"
+      ],
+      "priority": 6,
+      "conflicts_with": [],
+      "capabilities": [
+        "file_organization",
+        "batch_operations",
+        "duplicate_detection",
+        "smart_categorization",
+        "file_renaming"
+      ],
+      "dependencies": [
+        "pathlib (built-in)"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "github_publisher",
+      "name": "GitHub Publisher",
+      "description": "Automatically publish session logs, skills, and learning content to appropriate GitHub repositories",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\github_publisher",
+      "triggers": [
+        "publish to github",
+        "push session",
+        "commit learning",
+        "update github",
+        "push to repo"
+      ],
+      "examples": [
+        "Publish this session to GitHub",
+        "Push my changes to the learning-logs repo",
+        "Commit this skill to personal-ai-os",
+        "Push to GitHub"
+      ],
+      "context_hints": [
+        "user mentions publishing or pushing to GitHub",
+        "user wants to share their work publicly",
+        "user mentions committing code or content",
+        "conversation involves learning-in-public workflows"
+      ],
+      "priority": 7,
+      "conflicts_with": [],
+      "capabilities": [
+        "git_operations",
+        "branch_management",
+        "commit_generation",
+        "repo_routing"
+      ],
+      "dependencies": [
+        "gitpython>=3.1.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "linear_manager",
+      "name": "Linear Manager",
+      "description": "Manage Linear issues and projects - create tasks, track progress, sync with notes. Use when user says \"create linear task\", \"track progress\", or \"setup module\".",
+      "version": "1.2.0",
+      "path": ".agent\\skills\\linear_manager",
+      "triggers": [
+        "create linear issue",
+        "create linear task",
+        "update linear",
+        "track progress",
+        "create module",
+        "setup module",
+        "show my tasks"
+      ],
+      "examples": [
+        "Create a Linear task for the BigQuery homework",
+        "Show my in-progress tasks",
+        "Setup Module 4 in Linear",
+        "What tasks do I have this week?",
+        "Create an issue for fixing the sync bug"
+      ],
+      "context_hints": [
+        "user mentions Linear or project management",
+        "user wants to create or track tasks",
+        "user asks about their todo list or backlog",
+        "user mentions modules or homework tracking"
+      ],
+      "priority": 8,
+      "conflicts_with": [
+        "obsidian_linear_sync"
+      ],
+      "capabilities": [
+        "issue_creation",
+        "project_management",
+        "task_tracking",
+        "progress_monitoring",
+        "module_setup"
+      ],
+      "dependencies": [
+        "requests>=2.31.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "notebook_manager",
+      "name": "Notebook Manager",
+      "description": "Create, organize, and manage Jupyter notebooks with templates for data engineering tasks",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\notebook_manager",
+      "triggers": [
+        "create notebook",
+        "generate jupyter notebook",
+        "make notebook for",
+        "setup notebook",
+        "organize notebooks"
+      ],
+      "examples": [
+        "Create a Spark development notebook",
+        "Generate a data exploration notebook",
+        "Setup notebook for BigQuery queries",
+        "Organize my notebooks by module"
+      ],
+      "context_hints": [
+        "user mentions Jupyter or notebooks",
+        "user wants to explore or analyze data",
+        "user needs structured notebook templates",
+        "user is doing data engineering development"
+      ],
+      "priority": 6,
+      "conflicts_with": [],
+      "capabilities": [
+        "notebook_creation",
+        "template_application",
+        "notebook_organization",
+        "cell_templates",
+        "markdown_generation"
+      ],
+      "dependencies": [
+        "jupyter>=1.0.0",
+        "nbformat>=5.0.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "obsidian_linear_sync",
+      "name": "Obsidian Linear Sync",
+      "description": "Sync tasks between Obsidian notes and Linear issues. Currently Obsidian\u2192Linear. Use when user says \"sync tasks\", \"add to linear\", or \"sync obsidian\".",
+      "version": "1.2.0",
+      "path": ".agent\\skills\\obsidian_linear_sync",
+      "triggers": [
+        "sync obsidian linear",
+        "sync my tasks",
+        "sync tasks to linear",
+        "add tasks to linear",
+        "push tasks to linear",
+        "update linear from notes"
+      ],
+      "examples": [
+        "Sync my daily tasks to Linear",
+        "Add today's tasks to Linear",
+        "Push my Obsidian tasks",
+        "Sync my notes with Linear",
+        "Create Linear issues from my daily note"
+      ],
+      "context_hints": [
+        "user mentions Obsidian and Linear together",
+        "user has tasks in daily notes that need tracking",
+        "user mentions syncing or pushing tasks",
+        "user wants tasks from notes to appear in project management",
+        "user is starting their day and needs tasks in Linear"
+      ],
+      "priority": 8,
+      "conflicts_with": [
+        "linear_manager"
+      ],
+      "capabilities": [
+        "task_extraction",
+        "linear_issue_creation",
+        "obsidian_file_update",
+        "linear_to_obsidian_sync"
+      ],
+      "dependencies": [
+        "requests>=2.31.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "obsidian_manager",
+      "name": "Obsidian Manager",
+      "description": "Manage Obsidian vault notes via MCP - create, read, search notes and manage knowledge base",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\obsidian_manager",
+      "triggers": [
+        "create obsidian note",
+        "search vault",
+        "read note",
+        "update knowledge base",
+        "find in notes"
+      ],
+      "examples": [
+        "Create a note about Spark partitioning",
+        "Search my vault for BigQuery notes",
+        "Show my Module 3 notes",
+        "Create today's daily note"
+      ],
+      "context_hints": [
+        "user mentions Obsidian or note-taking",
+        "user wants to search their knowledge base",
+        "user asks to create or find notes",
+        "user references their vault"
+      ],
+      "priority": 7,
+      "conflicts_with": [],
+      "capabilities": [
+        "note_creation",
+        "vault_search",
+        "note_reading",
+        "metadata_management",
+        "template_application"
+      ],
+      "dependencies": [
+        "requests>=2.31.0",
+        "python-frontmatter>=1.0.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "project_onboarder",
+      "name": "Project Onboarder",
+      "description": "Automates new project setup - creates folder structure, git repo, Obsidian note, and Linear project",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\project_onboarder",
+      "triggers": [
+        "onboard project",
+        "new project",
+        "create project",
+        "start project",
+        "initialize project"
+      ],
+      "examples": [
+        "Create a new project for my side quest",
+        "Onboard the data pipeline project",
+        "Set up a new project called ML Experiments",
+        "Start a new project"
+      ],
+      "context_hints": [
+        "user mentions starting or creating a new project",
+        "user wants consistent project structure",
+        "user mentions project scaffolding or setup"
+      ],
+      "priority": 7,
+      "conflicts_with": [],
+      "capabilities": [
+        "project_structure_creation",
+        "git_initialization",
+        "linear_project_creation",
+        "obsidian_project_note"
+      ],
+      "dependencies": [
+        "gitpython>=3.1.0",
+        "requests>=2.31.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "session_wrapper",
+      "name": "Session Wrapper",
+      "description": "Automates \"Learning-in-Public\" session logs by aggregating Git activity, Linear tasks, and generating social-ready content. Use when user says \"wrap session\", \"end session\", or \"log session\".",
+      "version": "1.2.0",
+      "path": ".agent\\skills\\session_wrapper",
+      "triggers": [
+        "wrap session",
+        "create session log",
+        "log session",
+        "end session",
+        "summarize my work",
+        "what did I do today"
+      ],
+      "examples": [
+        "Wrap up this coding session",
+        "Create a session log for my BigQuery work",
+        "I'm done for today, log what I did",
+        "Generate a learning summary",
+        "End my DE Zoomcamp session"
+      ],
+      "context_hints": [
+        "user mentions finishing or ending work",
+        "user asks about summarizing recent activity",
+        "user mentions learning in public or content creation",
+        "user references Git commits or changes made",
+        "user wants to create social media posts about their work"
+      ],
+      "priority": 9,
+      "conflicts_with": [],
+      "capabilities": [
+        "git_analysis",
+        "task_aggregation",
+        "content_synthesis",
+        "social_drafting",
+        "publish_detection",
+        "github_routing"
+      ],
+      "dependencies": [
+        "requests>=2.31.0",
+        "gitpython>=3.1.0",
+        "python-frontmatter>=1.0.0"
+      ],
+      "enabled": true,
+      "auto_load": true
+    },
+    {
+      "id": "web_scraper",
+      "name": "Web Scraper",
+      "description": "Extract data from websites using browser automation, with support for dynamic content and structured data collection",
+      "version": "1.1.0",
+      "path": ".agent\\skills\\web_scraper",
+      "triggers": [
+        "scrape website",
+        "extract data from",
+        "get content from",
+        "crawl website",
+        "fetch web data",
+        "collect information from"
+      ],
+      "examples": [
+        "Scrape product prices from this website",
+        "Extract article headlines from TechCrunch",
+        "Get all links from this page",
+        "Collect data from this table"
+      ],
+      "context_hints": [
+        "user mentions web scraping or data extraction",
+        "user wants to get data from a website",
+        "user mentions crawling or collecting web data",
+        "user has a URL they want data from"
+      ],
+      "priority": 6,
+      "conflicts_with": [],
+      "capabilities": [
+        "web_scraping",
+        "data_extraction",
+        "browser_automation",
+        "structured_data_collection",
+        "dynamic_content_handling"
+      ],
+      "dependencies": [
+        "browser automation (built-in)"
+      ],
+      "enabled": true,
+      "auto_load": true
+    }
+  ]
+}

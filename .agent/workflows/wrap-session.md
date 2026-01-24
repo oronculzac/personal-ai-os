@@ -20,7 +20,7 @@ Say any of these:
 **1. Collect Session Context**
 // turbo
 ```powershell
-python .agent\skills\session_wrapper\scripts\session_wrapper.py --dry-run
+.agent\.venv\Scripts\python.exe .agent\skills\session_wrapper\scripts\session_wrapper.py --dry-run
 ```
 
 Review the output to see:
@@ -28,33 +28,42 @@ Review the output to see:
 - Linear tickets worked on
 - Publish recommendation (repo + confidence)
 
-**2. Save Session Log to Obsidian**
+**2. Sync Tasks to Linear**
+
+Ensure any new tasks added to notes are tracked:
+Ensure any new tasks added to notes are tracked:
+
+**Action**: Trigger the `Obsidian Linear Sync` skill.
+- "Sync my daily note tasks to Linear"
+- Verify that tasks are created and the note is updated with links.
+
+**3. Save Session Log to Obsidian**
 
 If user approves, save the session log:
 // turbo
 ```powershell
-python .agent\skills\session_wrapper\scripts\session_wrapper.py
+.agent\.venv\Scripts\python.exe .agent\skills\session_wrapper\scripts\session_wrapper.py
 ```
 
-This creates a note in `vault/Sessions/YYYY-MM-DD_HHMM.md`
+This creates a note in `vault/Journals/Sessions/YYYY-MM-DD_HHMM.md`
 
-**3. Publish to GitHub (if recommended)**
+**4. Publish to GitHub (if recommended)**
 
 If publish detector says "Should Publish: Yes", offer to publish:
 
 For **skills** → push to `personal-ai-os`:
 ```powershell
-python .agent\skills\github_publisher\scripts\publisher.py .agent\skills\<skill_name> --repo personal-ai-os --type skill --execute
+.agent\.venv\Scripts\python.exe .agent\skills\github_publisher\scripts\publisher.py .agent\skills\<skill_name> --repo personal-ai-os --type skill --execute
 ```
 
 For **homework** → push to `de-zoomcamp-2026`:
 ```powershell
-python .agent\skills\github_publisher\scripts\publisher.py <homework_files> --repo de-zoomcamp-2026 --type homework --execute
+.agent\.venv\Scripts\python.exe .agent\skills\github_publisher\scripts\publisher.py <homework_files> --repo de-zoomcamp-2026 --type homework --execute
 ```
 
 For **session logs** → push to `learning-logs`:
 ```powershell
-python .agent\skills\github_publisher\scripts\publisher.py vault\Sessions\<log_file>.md --repo learning-logs --type learning_log --execute
+.agent\.venv\Scripts\python.exe .agent\skills\github_publisher\scripts\publisher.py vault\Sessions\<log_file>.md --repo learning-logs --type learning_log --execute
 ```
 
 ## Auto-Detection Criteria

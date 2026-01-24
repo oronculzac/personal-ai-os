@@ -1,0 +1,12 @@
+# Example Skill Template Resources
+
+This is a template resource file.
+
+Replace this content with actual templates, data files, or other resources your skill needs.
+
+## Common Resource Types
+
+- **Templates**: Document templates (.docx, .xlsx, .pptx)
+- **Data**: Reference data (.json, .csv)
+- **Configs**: Configuration files (.yaml, .json)
+- **Assets**: Images, logos, icons

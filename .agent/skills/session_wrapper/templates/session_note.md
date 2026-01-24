@@ -29,14 +29,7 @@ linear_tickets: {{linear_tickets}}
 
 ---
 
-## 📣 Social Drafts
+## 🔗 Links
 
-### 🐦 Twitter/X Thread
-*(Hook -> Problem -> Solution -> takeaway)*
-
-{{twitter_draft}}
-
-### 💼 LinkedIn Post
-*(Professional reflection)*
-
-{{linkedin_draft}}
+**Code Repository:** {{repo_url}}  
+**Social Drafts:** [Social Media Drafts](../../Social/{{social_filename}})

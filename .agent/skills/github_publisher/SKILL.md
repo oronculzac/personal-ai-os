@@ -1,12 +1,25 @@
 ---
 name: GitHub Publisher
 description: Automatically publish session logs, skills, and learning content to appropriate GitHub repositories
-version: 1.0.0
+version: 1.1.0
 triggers:
   - publish to github
   - push session
   - commit learning
   - update github
+  - push to repo
+examples:
+  - "Publish this session to GitHub"
+  - "Push my changes to the learning-logs repo"
+  - "Commit this skill to personal-ai-os"
+  - "Push to GitHub"
+context_hints:
+  - user mentions publishing or pushing to GitHub
+  - user wants to share their work publicly
+  - user mentions committing code or content
+  - conversation involves learning-in-public workflows
+priority: 7
+conflicts_with: []
 capabilities:
   - git_operations
   - branch_management

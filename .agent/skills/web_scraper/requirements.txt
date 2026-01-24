@@ -1,0 +1,4 @@
+# No external dependencies needed
+# Uses Antigravity's built-in browser_subagent tool
+# Optional: beautifulsoup4 for additional HTML parsing
+# beautifulsoup4>=4.12.0

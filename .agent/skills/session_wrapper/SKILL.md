@@ -1,12 +1,28 @@
 ---
 name: Session Wrapper
-description: Automates the creation of "Learning-in-Public" session logs by aggregating Git activity, Linear tasks, and generating social-ready content.
-version: 1.1.0
+description: Automates "Learning-in-Public" session logs by aggregating Git activity, Linear tasks, and generating social-ready content. Use when user says "wrap session", "end session", or "log session".
+version: 1.2.0
 triggers:
   - wrap session
   - create session log
   - log session
   - end session
+  - summarize my work
+  - what did I do today
+examples:
+  - "Wrap up this coding session"
+  - "Create a session log for my BigQuery work"
+  - "I'm done for today, log what I did"
+  - "Generate a learning summary"
+  - "End my DE Zoomcamp session"
+context_hints:
+  - user mentions finishing or ending work
+  - user asks about summarizing recent activity
+  - user mentions learning in public or content creation
+  - user references Git commits or changes made
+  - user wants to create social media posts about their work
+priority: 9
+conflicts_with: []
 capabilities:
   - git_analysis
   - task_aggregation
@@ -18,6 +34,29 @@ dependencies:
   - requests>=2.31.0
   - gitpython>=3.1.0
   - python-frontmatter>=1.0.0
+inputs:
+  optional:
+    - name: dry_run
+      type: boolean
+      default: false
+      description: Preview session analysis without saving
+    - name: topic
+      type: string
+      description: Override detected topic for the session
+    - name: publish
+      type: boolean
+      default: false
+      description: Also publish to GitHub/Dev.to (user must confirm)
+outputs:
+  - name: session_log_path
+    type: path
+    description: Path to created session log in vault
+  - name: publish_recommendation
+    type: object
+    description: Repository and confidence score for publishing
+  - name: files_modified
+    type: integer
+    description: Count of files changed during session
 auto_load: true
 ---
 

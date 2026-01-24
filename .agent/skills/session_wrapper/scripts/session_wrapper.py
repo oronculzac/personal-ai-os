@@ -78,7 +78,9 @@ def generate_session_summary(context: dict, decision: PublishDecision) -> str:
 
 
 def save_session_log(context: dict, decision: PublishDecision, output_path: Path) -> bool:
-    """Save the session log to Obsidian vault with synthesized content."""
+    """Save the session log to Obsidian vault with synthesized content.
+    Also creates a separate social drafts file.
+    """
     try:
         # Import synthesizer
         from synthesizer import synthesize_session
@@ -131,13 +133,44 @@ target_repo: {{target_repo}}
         content = content.replace("{{core_work_log}}", synth.core_work_log)
         content = content.replace("{{side_quest_log}}", synth.side_quest_log)
         content = content.replace("{{narrative_content}}", synth.narrative)
-        content = content.replace("{{twitter_draft}}", synth.twitter_draft)
-        content = content.replace("{{linkedin_draft}}", synth.linkedin_draft)
         
-        # Write to output
+        # Add repo URL and social filename
+        social_filename = output_path.stem + "_drafts.md"
+        content = content.replace("{{repo_url}}", git.get("repo_url", "N/A"))
+        content = content.replace("{{social_filename}}", social_filename)
+        
+        # Write article to Sessions folder
         output_path.parent.mkdir(parents=True, exist_ok=True)
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(content)
+        
+        # Generate social drafts file
+        social_template_path = Path(__file__).parent.parent / "templates" / "social_drafts.md"
+        if social_template_path.exists():
+            with open(social_template_path, 'r', encoding='utf-8') as f:
+                social_template = f.read()
+            
+            # Fill social template
+            social_content = social_template
+            social_content = social_content.replace("{{title}}", f"Session {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+            social_content = social_content.replace("{{focus_area}}", "Session Wrapper Development")
+            social_content = social_content.replace("{{date}}", datetime.now().strftime("%Y-%m-%d"))
+            social_content = social_content.replace("{{session_reference}}", f"Session {datetime.now().strftime('%Y-%m-%d')}")
+            social_content = social_content.replace("{{twitter_draft}}", synth.twitter_draft)
+            social_content = social_content.replace("{{linkedin_draft}}", synth.linkedin_draft)
+            social_content = social_content.replace("{{suggested_tags}}", "dataengineering, learninginpublic, python")
+            social_content = social_content.replace("{{suggested_series}}", "Learning in Public")
+            social_content = social_content.replace("{{canonical_url}}", git.get("repo_url", ""))
+            social_content = social_content.replace("{{filename}}", output_path.name)
+            
+            # Write to Social folder
+            vault_path = context.get("config", {}).get("vault_path")
+            if vault_path:
+                social_path = Path(vault_path) / "Social" / social_filename
+                social_path.parent.mkdir(parents=True, exist_ok=True)
+                with open(social_path, 'w', encoding='utf-8') as f:
+                    f.write(social_content)
+                print(f"   📱 Social drafts: {social_path}")
         
         return True
     except Exception as e:
@@ -192,7 +225,7 @@ def main():
     else:
         vault_path = context.get("config", {}).get("vault_path")
         if vault_path:
-            output_path = Path(vault_path) / "Sessions" / f"{datetime.now().strftime('%Y-%m-%d_%H%M')}.md"
+            output_path = Path(vault_path) / "Journals" / "Sessions" / f"{datetime.now().strftime('%Y-%m-%d_%H%M')}.md"
         else:
             output_path = Path(f"session_{datetime.now().strftime('%Y-%m-%d_%H%M')}.md")
     

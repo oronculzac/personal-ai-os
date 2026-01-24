@@ -1,0 +1,22 @@
+{
+    "obsidian": {
+        "vault_path": "C:\\Users\\Oron Culzac\\antigravity_general\\vault",
+        "api_url": "http://localhost:27124"
+    },
+    "linear": {
+        "workspace": "DE Zoomcamp"
+    },
+    "github": {
+        "username": "oronculzac",
+        "repos": {
+            "personal-ai-os": "C:\\Users\\Oron Culzac\\antigravity_general\\repos\\personal-ai-os",
+            "de-zoomcamp-2026": "C:\\Users\\Oron Culzac\\antigravity_general\\repos\\de-zoomcamp-2026",
+            "learning-logs": "C:\\Users\\Oron Culzac\\antigravity_general\\repos\\learning-logs"
+        },
+        "default_branch": "main",
+        "auto_push": false
+    },
+    "devto": {
+        "username": "oronculzac"
+    }
+}
